@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Tab Switcher
 function initTabs() {
-  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabButtons = document.querySelectorAll('.nav-tab, .tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
   function activateTab(tabId) {
@@ -31,6 +31,7 @@ function initTabs() {
     });
 
     window.location.hash = tabId;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   tabButtons.forEach(btn => {
@@ -38,6 +39,9 @@ function initTabs() {
       activateTab(btn.dataset.tab);
     });
   });
+
+  // Expose global function switchTab
+  window.switchTab = activateTab;
 
   // Handle URL Hash on load
   const currentHash = window.location.hash.replace('#', '');
@@ -55,12 +59,12 @@ function initChecklists() {
     const itemId = cb.id;
     if (savedState[itemId]) {
       cb.checked = true;
-      const parent = cb.closest('.checklist-item');
+      const parent = cb.closest('.check-item, .checklist-item');
       if (parent) parent.classList.add('checked');
     }
 
     cb.addEventListener('change', (e) => {
-      const parent = cb.closest('.checklist-item');
+      const parent = cb.closest('.check-item, .checklist-item');
       if (e.target.checked) {
         if (parent) parent.classList.add('checked');
         savedState[itemId] = true;
@@ -92,7 +96,7 @@ function updateGlobalProgress() {
 
   if (progressFill) progressFill.style.width = `${percentage}%`;
   if (progressText) progressText.innerText = `${percentage}%`;
-  if (countText) countText.innerText = `${checkedCount} de ${total} tópicos`;
+  if (countText) countText.innerText = `${checkedCount} de ${total} tópicos concluídos`;
 }
 
 // Accordions for Study Questions
@@ -118,7 +122,7 @@ function initSearch() {
 
   searchInput.addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase().trim();
-    const items = document.querySelectorAll('.checklist-item, .card, .accordion-item');
+    const items = document.querySelectorAll('.check-item, .checklist-item, .cert-card, .card, .accordion-item');
 
     items.forEach(item => {
       const text = item.innerText.toLowerCase();
@@ -138,7 +142,7 @@ function resetProgress() {
     const checkboxes = document.querySelectorAll('.custom-checkbox');
     checkboxes.forEach(cb => {
       cb.checked = false;
-      const parent = cb.closest('.checklist-item');
+      const parent = cb.closest('.check-item, .checklist-item');
       if (parent) parent.classList.remove('checked');
     });
     updateGlobalProgress();
