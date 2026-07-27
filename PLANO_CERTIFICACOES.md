@@ -21,21 +21,25 @@ Este documento estabelece o plano de estudos e mapeamento de certificações est
 ## 🎯 Roteiro de Certificações 100% Gratuitas
 
 ### 1. Solace Certified Event-Driven Architecture Practitioner
+* 📄 **Plano de Estudos Dedicado**: [PLANO_ESTUDOS_SOLACE_EDA.md](file:///d:/Github/My/Curriculum/PLANO_ESTUDOS_SOLACE_EDA.md)
 * **Plataforma**: [Solace Academy](https://academy.solace.com/)
 * **Conteúdo**: Arquitetura Orientada a Eventos (EDA), Event Mesh, padrões Pub/Sub e desacoplamento de microsserviços.
 * **Benefício**: Certificado digital e badge oficial grátis.
 
 ### 2. Neo4j Certified Professional
+* 📄 **Plano de Estudos Dedicado**: [PLANO_ESTUDOS_NEO4J_CERTIFIED.md](file:///d:/Github/My/Curriculum/PLANO_ESTUDOS_NEO4J_CERTIFIED.md)
 * **Plataforma**: [Neo4j GraphAcademy](https://graphacademy.neo4j.com/)
 * **Conteúdo**: Banco de dados orientado a grafos, linguagem de consulta Cypher, modelagem e otimização.
 * **Benefício**: Exame oficial 100% gratuito com credencial verificável no LinkedIn/Credly.
 
 ### 3. CertiProf Scrum Foundation Professional Certificate (SFPC)
+* 📄 **Plano de Estudos Dedicado**: [PLANO_ESTUDOS_SCRUM_SFPC.md](file:///d:/Github/My/Curriculum/PLANO_ESTUDOS_SCRUM_SFPC.md)
 * **Plataforma**: [CertiProf](https://certiprof.com/)
 * **Conteúdo**: Fundamentos do Framework Scrum, papéis, rituais e entregas ágeis.
 * **Benefício**: Exame online sem custo e certificado oficial.
 
 ### 4. Confluent Developer & AWS Skill Builder Badges
+* 📄 **Plano de Estudos Dedicado (Kafka)**: [PLANO_ESTUDOS_KAFKA_CONFLUENT.md](file:///d:/Github/My/Curriculum/PLANO_ESTUDOS_KAFKA_CONFLUENT.md)
 * **Plataformas**: [Confluent Developer](https://developer.confluent.io/) / [AWS Skill Builder](https://explore.skillbuilder.aws/)
 * **Conteúdo**: Apache Kafka Fundamentals, Event Streaming, AWS Cloud Essentials.
 * **Benefício**: Treinamentos e badges de conhecimento gratuitos.
