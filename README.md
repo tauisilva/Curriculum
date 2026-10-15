@@ -1,4 +1,4 @@
-# 📄 CV Builder & Exporter
+# 📄 Curriculum Builder & Exporter
 
 Aplicação web moderna, interativa e de alta fidelidade para edição, gerenciamento e exportação de currículo profissional para **PDF (formato A4)**, desenvolvida com **React 19**, **TypeScript**, **Vite** e **Tailwind CSS**.
 
