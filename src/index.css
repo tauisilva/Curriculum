@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Force pointer cursor everywhere appropriate */
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="color"],
+  select,
+  summary,
+  a {
+    cursor: pointer !important;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+/* Screen A4 sheet simulation */
+.a4-preview-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-paper {
+  background: #ffffff;
+  color: #1e293b;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 16mm 18mm;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 900px) {
+  .resume-paper {
+    width: 100%;
+    min-height: auto;
+    padding: 18px;
+    box-shadow: none;
+  }
+}
+
+/* Print Specific Rules: Pure White, Zero Dark Artifacts, Perfect Margin Flow */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm 12mm 15mm;
+  }
+
+  /* 1. Global Reset to Pure White - Eliminate any parent background-color */
+  *,
+  *::before,
+  *::after {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  html,
+  body,
+  #root,
+  .min-h-screen,
+  main,
+  div {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 2. Hide ONLY elements explicitly marked with .no-print */
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 3. Strip layout constraints on containers */
+  main,
+  .grid,
+  .a4-preview-container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    border: none !important;
+  }
+
+  /* 4. Let the paper naturally fill the page */
+  .resume-paper,
+  #resume-to-print {
+    display: block !important;
+    visibility: visible !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* 5. Ensure personal info header is fully visible */
+  .resume-header {
+    display: block !important;
+    visibility: visible !important;
+    margin-bottom: 14px !important;
+  }
+
+  .resume-header * {
+    visibility: visible !important;
+  }
+
+  .resume-header .flex {
+    display: flex !important;
+  }
+
+  .page-break-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
