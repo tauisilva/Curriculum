@@ -286,10 +286,11 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
     )
   }
 
-  // Skills renderer (List or Tags)
+  // Skills renderer (Direct lines, Tags, Cards, or Bullets)
   const renderSkills = () => {
     if (!skillCategories || skillCategories.length === 0) return null
 
+    // 1. Tags / Chips
     if (theme.skillsDisplayStyle === 'tags') {
       return (
         <div className="space-y-2.5">
@@ -325,15 +326,153 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
       )
     }
 
+    // 2. Cards
+    if (theme.skillsDisplayStyle === 'cards') {
+      return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {skillCategories.map((item) => (
+            <div
+              key={item.id}
+              className="p-2 rounded border border-slate-200/80 bg-slate-50/50"
+            >
+              <div className="font-bold text-[9pt] text-slate-900 mb-0.5">
+                {item.name}
+              </div>
+              <div className="text-[8.5pt] text-slate-600 leading-snug">
+                {item.skills}
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    // 3. Bullets (only if explicitly chosen)
+    if (theme.skillsDisplayStyle === 'bullets') {
+      return (
+        <ul className={`list-disc list-outside pl-4 text-slate-700 ${spacingClasses.bulletGap}`}>
+          {skillCategories.map((item) => (
+            <li key={item.id} className="pl-1 leading-snug">
+              <strong className="font-semibold text-slate-900">{item.name}:</strong>{' '}
+              <span>{item.skills}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    // Default: 'list' (Linhas Diretas contínuas SEM tópicos/marcadores)
     return (
-      <ul className={`list-disc list-outside pl-4 text-slate-700 ${spacingClasses.bulletGap}`}>
+      <div className={`space-y-1.5 text-slate-700 ${spacingClasses.bulletGap}`}>
         {skillCategories.map((item) => (
-          <li key={item.id} className="pl-1 leading-snug">
-            <strong className="font-semibold text-slate-900">{item.name}:</strong>{' '}
-            <span>{item.skills}</span>
-          </li>
+          <div key={item.id} className="leading-snug text-[9.5pt]">
+            <strong className="font-semibold text-slate-900">{item.name}: </strong>
+            <span className="text-slate-700">{item.skills}</span>
+          </div>
         ))}
-      </ul>
+      </div>
+    )
+  }
+
+  // Education renderer
+  const renderEducation = (isSidebar: boolean = false) => {
+    if (!education || education.length === 0) return null
+
+    const style = theme.educationDisplayStyle || 'standard'
+
+    if (isSidebar) {
+      return (
+        <div className="space-y-2.5 text-[8.5pt]">
+          {education.map((edu) => (
+            <div key={edu.id} className="leading-snug">
+              <div className="font-bold text-slate-900">{edu.degree}</div>
+              <div className="text-slate-600">{edu.institution}</div>
+              <div className="text-slate-400 text-[8pt] font-medium">{edu.period}</div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    if (style === 'bordered') {
+      return (
+        <div className="space-y-2.5">
+          {education.map((edu) => (
+            <div
+              key={edu.id}
+              className="pl-3 border-l-2 py-0.5 page-break-avoid"
+              style={{ borderColor: theme.primaryColor }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-x-2">
+                <span className="font-bold text-[9.5pt] text-slate-900 leading-snug">
+                  {edu.degree}
+                </span>
+                <span className="text-[8.5pt] font-semibold text-slate-600 shrink-0 sm:text-right">
+                  {edu.period}
+                </span>
+              </div>
+              {edu.institution && (
+                <div className="text-[9pt] text-slate-600 leading-snug mt-0.5">
+                  {edu.institution}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    if (style === 'badge') {
+      return (
+        <div className="space-y-2.5">
+          {education.map((edu) => (
+            <div key={edu.id} className="page-break-avoid">
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-x-2">
+                <span className="font-bold text-[9.5pt] text-slate-900 leading-snug">
+                  {edu.degree}
+                </span>
+                <span
+                  className="px-2 py-0.5 rounded text-[8pt] font-semibold shrink-0 sm:text-right"
+                  style={{
+                    backgroundColor: `${theme.primaryColor}15`,
+                    color: theme.primaryColor,
+                  }}
+                >
+                  {edu.period}
+                </span>
+              </div>
+              {edu.institution && (
+                <div className="text-[9pt] text-slate-600 leading-snug mt-0.5">
+                  {edu.institution}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    // Default 'standard' (Organizado em 2 níveis, grau em negrito + período à direita)
+    return (
+      <div className="space-y-2.5">
+        {education.map((edu) => (
+          <div key={edu.id} className="page-break-avoid">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-x-2">
+              <span className="font-bold text-[9.5pt] text-slate-900 leading-snug">
+                {edu.degree}
+              </span>
+              <span className="text-[8.5pt] font-semibold text-slate-600 shrink-0 sm:text-right">
+                {edu.period}
+              </span>
+            </div>
+            {edu.institution && (
+              <div className="text-[9pt] text-slate-600 leading-snug mt-0.5">
+                {edu.institution}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     )
   }
 
@@ -425,16 +564,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
         {education && education.length > 0 && (
           <section className={`${spacingClasses.sectionGap} page-break-avoid`}>
             {renderSectionTitle('Formação Acadêmica')}
-            <ul className={`list-disc list-outside pl-4 text-slate-700 ${spacingClasses.bulletGap}`}>
-              {education.map((edu) => (
-                <li key={edu.id} className="pl-1 leading-snug">
-                  <strong className="font-semibold text-slate-900">{edu.degree}</strong>
-                  <span className="text-slate-600"> — {edu.institution}</span>
-                  <span className="text-slate-400 mx-1.5">|</span>
-                  <span className="text-slate-600 font-medium">{edu.period}</span>
-                </li>
-              ))}
-            </ul>
+            {renderEducation()}
           </section>
         )}
 
@@ -482,15 +612,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {education && education.length > 0 && (
               <div>
                 {renderSectionTitle('Formação')}
-                <div className="space-y-2 text-[8.5pt]">
-                  {education.map((edu) => (
-                    <div key={edu.id} className="leading-snug">
-                      <div className="font-bold text-slate-900">{edu.degree}</div>
-                      <div className="text-slate-600">{edu.institution}</div>
-                      <div className="text-slate-400 text-[8pt]">{edu.period}</div>
-                    </div>
-                  ))}
-                </div>
+                {renderEducation(true)}
               </div>
             )}
 
@@ -637,16 +759,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
       {education && education.length > 0 && (
         <section className={`${spacingClasses.sectionGap} page-break-avoid`}>
           {renderSectionTitle('Formação')}
-          <ul className={`list-disc list-outside pl-4 text-slate-700 ${spacingClasses.bulletGap}`}>
-            {education.map((edu) => (
-              <li key={edu.id} className="pl-1 leading-snug">
-                <strong className="font-semibold text-slate-900">{edu.degree}</strong>
-                <span className="text-slate-600"> — {edu.institution}</span>
-                <span className="text-slate-400 mx-1.5">|</span>
-                <span className="text-slate-600 font-medium">{edu.period}</span>
-              </li>
-            ))}
-          </ul>
+          {renderEducation()}
         </section>
       )}
 

@@ -77,6 +77,7 @@ export const initialResume: ResumeData = {
     showContactIcons: false,
     sectionTitleStyle: 'line',
     skillsDisplayStyle: 'list',
+    educationDisplayStyle: 'standard',
     fontFamily: 'sans',
     fontSize: 'base',
     density: 'normal',

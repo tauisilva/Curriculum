@@ -42,7 +42,8 @@ export interface CustomSectionItem {
 export type LayoutTemplate = 'classic' | 'sidebar' | 'minimal'
 export type HeaderAlignment = 'center' | 'left' | 'split'
 export type SectionTitleStyle = 'line' | 'accent-bar' | 'badge' | 'minimal'
-export type SkillsDisplayStyle = 'list' | 'tags'
+export type SkillsDisplayStyle = 'list' | 'tags' | 'cards' | 'bullets'
+export type EducationDisplayStyle = 'standard' | 'badge' | 'bordered'
 export type FontFamilyChoice = 'sans' | 'roboto' | 'outfit' | 'serif' | 'mono'
 export type FontSizeChoice = 'compact' | 'base' | 'large'
 
@@ -53,6 +54,7 @@ export interface ThemeSettings {
   showContactIcons: boolean
   sectionTitleStyle: SectionTitleStyle
   skillsDisplayStyle: SkillsDisplayStyle
+  educationDisplayStyle?: EducationDisplayStyle
   fontFamily: FontFamilyChoice
   fontSize: FontSizeChoice
   density: 'compact' | 'normal' | 'spacious'

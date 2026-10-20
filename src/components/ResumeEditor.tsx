@@ -816,16 +816,44 @@ export const ResumeEditor: React.FC<ResumeEditorProps> = ({ data, onChange }) =>
               <label className="block text-xs font-semibold text-slate-300">
                 Exibição das Habilidades Técnicas
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
-                  { key: 'list', label: 'Lista com Marcadores (Bullets)' },
-                  { key: 'tags', label: 'Tags / Chips Modernos' },
+                  { key: 'list', label: 'Linhas Diretas (Sem tópicos)' },
+                  { key: 'tags', label: 'Tags / Chips' },
+                  { key: 'cards', label: 'Cards Sutis' },
+                  { key: 'bullets', label: 'Com Marcadores' },
                 ].map((item) => (
                   <button
                     key={item.key}
                     onClick={() => updateTheme('skillsDisplayStyle', item.key)}
                     className={`p-2 rounded-lg border text-xs font-medium cursor-pointer transition-all text-center ${
                       (data.theme.skillsDisplayStyle || 'list') === item.key
+                        ? 'border-sky-500 bg-sky-600/20 text-white'
+                        : 'border-slate-800 bg-slate-950/40 text-slate-400 hover:bg-slate-800'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 4.1. EDUCATION DISPLAY STYLE */}
+            <div className="space-y-2 pt-2 border-t border-slate-800">
+              <label className="block text-xs font-semibold text-slate-300">
+                Estilo da Formação Acadêmica
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {[
+                  { key: 'standard', label: 'Padrão Executivo (Grau + Data)' },
+                  { key: 'badge', label: 'Badge no Período' },
+                  { key: 'bordered', label: 'Barra Lateral de Destaque' },
+                ].map((item) => (
+                  <button
+                    key={item.key}
+                    onClick={() => updateTheme('educationDisplayStyle', item.key)}
+                    className={`p-2 rounded-lg border text-xs font-medium cursor-pointer transition-all text-center ${
+                      (data.theme.educationDisplayStyle || 'standard') === item.key
                         ? 'border-sky-500 bg-sky-600/20 text-white'
                         : 'border-slate-800 bg-slate-950/40 text-slate-400 hover:bg-slate-800'
                     }`}
